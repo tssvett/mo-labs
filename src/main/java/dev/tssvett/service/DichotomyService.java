@@ -7,8 +7,10 @@ public class DichotomyService {
     private final Display display = new Display();
 
     public void solveByDichotomyMethod() {
-        DichotomyResult dihotomyDichotomyResult = Solver.findMinimumByDichotomy(0, 5, 0.00001);
+        DichotomyResult dihotomyDichotomyResult = Solver.findMinimumByDichotomyV1(0, 5, 0.00001);
         display.outputDihotomyResult(dihotomyDichotomyResult);
+        DichotomyResult minimumByDichotomyV2 = Solver.findMinimumByDichotomyV2(0, 5, 0.00001);
+        display.outputDihotomyResult(minimumByDichotomyV2);
     }
 
 }
