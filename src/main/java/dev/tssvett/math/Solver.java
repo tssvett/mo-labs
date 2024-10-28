@@ -61,82 +61,79 @@ public class Solver {
     }
 
     public static Result findMinimumByGoldenRatio(double a, double b, double deltaX) {
-        double t1 = 0.3819660113;
-        double t2 = 1.0 - t1;
-        double x0 = a;
-        double x1 = a + t1 * (b - a);
-        double x2 = a + t2 * (b - a);
-        double x3 = b;
-        int iteration = 0;
-        double fr = 0;
+        double phi = (1 + Math.sqrt(5)) / 2; // Золотое сечение
+        double resphi = 2 - phi;
 
-        double f0 = f(x0);
+        // Инициализация
+        double x1 = a + resphi * (b - a);
+        double x2 = b - resphi * (b - a);
         double f1 = f(x1);
         double f2 = f(x2);
-        double f3 = f(x3);
-        while (Math.abs(x3 - x0) > deltaX) {
+
+        int iteration = 0;
+
+        while (Math.abs(b - a) > deltaX) {
             iteration++;
-            if (f1 <= f2) {
-                x3 = x2;
-                f3 = f2;
+            if (f1 < f2) {
+                b = x2; // Сужаем интервал
                 x2 = x1;
                 f2 = f1;
-                x1 = x0 + t1 * (x3 - x0);
+                x1 = a + resphi * (b - a);
                 f1 = f(x1);
-                fr = f1;
             } else {
-                x0 = x1;
-                f0 = f1;
+                a = x1; // Сужаем интервал
                 x1 = x2;
                 f1 = f2;
-                x2 = x0 + t2 * (x3 - x0);
+                x2 = b - resphi * (b - a);
                 f2 = f(x2);
-                fr = f2;
             }
         }
-        a = x0;
-        b = x3;
-        return new Result(fr, b - a, iteration);
+
+        double minimumPoint = (f1 < f2) ? x1 : x2;
+
+        return new Result(minimumPoint, (b - a) / 2, iteration);
     }
 
+
     public static Result findMinimumByFibonacciMethod(double a, double b, double deltaX) {
+        // Определение числа итераций через длину интервала и deltaX
         int n = 1;
-        while (fibonacci(n) < (b - a) / deltaX) {
+        double fibonacciN2 = 1, fibonacciN1 = 1, fibonacciN = 2;
+        while (fibonacciN * deltaX < b - a) {
             n++;
+            fibonacciN2 = fibonacciN1;
+            fibonacciN1 = fibonacciN;
+            fibonacciN = fibonacciN1 + fibonacciN2;
         }
 
-        double x1 = a + ((double) fibonacci(n - 2) / fibonacci(n)) * (b - a);
-        double x2 = a + ((double) fibonacci(n - 1) / fibonacci(n)) * (b - a);
+        double x1 = a + fibonacciN2 / fibonacciN * (b - a);
+        double x2 = a + fibonacciN1 / fibonacciN * (b - a);
         double f1 = f(x1);
         double f2 = f(x2);
 
-        for (int i = 0; i < n; i++) {
-            if (f1 > f2) {
-                a = x1;
-                x1 = x2;
-                f1 = f2;
-                x2 = a + ((double) fibonacci(n - i - 1) / fibonacci(n - i)) * (b - a);
-                f2 = f(x2);
-            } else {
+        int iterationCount = 0;
+
+        for (int i = 1; i < n; i++) {
+            iterationCount++;
+            if (f1 < f2) {
                 b = x2;
                 x2 = x1;
                 f2 = f1;
-                x1 = a + ((double) fibonacci(n - i - 2) / fibonacci(n - i)) * (b - a);
+                x1 = a + fibonacciN2 / fibonacciN * (b - a);
                 f1 = f(x1);
+            } else {
+                a = x1;
+                x1 = x2;
+                f1 = f2;
+                x2 = a + fibonacciN1 / fibonacciN * (b - a);
+                f2 = f(x2);
             }
+            fibonacciN = fibonacciN1;
+            fibonacciN1 = fibonacciN2;
+            fibonacciN2 = fibonacciN - fibonacciN1;
         }
-        double idkWhatIsThis = b - a;
-        return new Result(f((a + b) / 2), idkWhatIsThis, n);
-    }
 
-
-    private static int fibonacci(int n) {
-        if (n == 0){
-            return 0;
-        }
-        if (n == 1) {
-            return 1;
-        }
-        return fibonacci(n - 1) + fibonacci(n - 2);
+        double minimum = (a + b) / 2;
+        return new Result(minimum, (b - a) / 2, iterationCount);
     }
 }
