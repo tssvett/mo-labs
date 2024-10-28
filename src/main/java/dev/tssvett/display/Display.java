@@ -1,9 +1,15 @@
 package dev.tssvett.display;
 
-import dev.tssvett.service.DichotomyResult;
+import dev.tssvett.result.Result;
 
 public class Display {
     private static final String BORDER = "===========================================================================================";
+
+    public void outputGeneralLaboratoryInformation() {
+        this.outputLaboratorySolverName();
+        this.outputLaboratoryVariant();
+        this.outputLaboratoryEquation();
+    }
 
     public void outputLaboratoryVariant() {
         System.out.println("Вариант лабораторной работы - 10");
@@ -19,8 +25,18 @@ public class Display {
         System.out.println("Лабораторную работу выполнил студент группы 6301-010302D Жиляев Максим");
     }
 
-    public void outputDihotomyResult(DichotomyResult dichotomyResult) {
-        System.out.println("Результат дихотомии: " + dichotomyResult.dichotomyResult() + ", погрешность: " + dichotomyResult.epsilon() + ", количество итераций: " + dichotomyResult.iterations());
+    public void outputDichotomyResult(Result result) {
+        System.out.println("Результат дихотомии: " + result.answer() + ", погрешность: " + result.epsilon() + ", количество итераций: " + result.iterations());
+        System.out.println(BORDER);
+    }
+
+    public void outputGoldenRatioResult(Result result) {
+        System.out.println("Результат золотого сечения: " + result.answer() + ", погрешность: " + result.epsilon() + ", количество итераций: " + result.iterations());
+        System.out.println(BORDER);
+    }
+
+    public void outputFibonacciResult(Result result) {
+        System.out.println("Результат фибоначчи: " + result.answer() + ", погрешность: " + result.epsilon() + ", количество итераций: " + result.iterations());
         System.out.println(BORDER);
     }
 }

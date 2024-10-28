@@ -2,19 +2,19 @@ package dev.tssvett;
 
 import dev.tssvett.display.Display;
 import dev.tssvett.service.DichotomyService;
+import dev.tssvett.service.FibonacciService;
+import dev.tssvett.service.GoldenRatioService;
 
 public class LaboratoryWork {
     private final Display display = new Display();
     private final DichotomyService dichotomyService = new DichotomyService();
+    private final GoldenRatioService goldenRatioService = new GoldenRatioService();
+    private final FibonacciService fibonacciService = new FibonacciService();
 
     public void run() {
-        outputGeneralLaboratoryInformation();
+        display.outputGeneralLaboratoryInformation();
         dichotomyService.solveByDichotomyMethod();
-    }
-
-    private void outputGeneralLaboratoryInformation() {
-        display.outputLaboratorySolverName();
-        display.outputLaboratoryVariant();
-        display.outputLaboratoryEquation();
+        goldenRatioService.solveByGoldenRatioMethod();
+        fibonacciService.solveByFibonacciMethod();
     }
 }
