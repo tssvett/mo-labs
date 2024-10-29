@@ -11,7 +11,7 @@ public class DichotomyService {
         Result dihotomyResult = Solver.findMinimumByDichotomyV1(0, 5, 0.00001);
         display.outputDichotomyResult(dihotomyResult);
 
-        Result minimumByDichotomyV2 = Solver.findMinimumByDichotomyV2(0, 5, 0.00001);
-        display.outputDichotomyResult(minimumByDichotomyV2);
+        //Result minimumByDichotomyV2 = Solver.findMinimumByDichotomyV2(0, 5, 0.00001);
+        //display.outputDichotomyResult(minimumByDichotomyV2);
     }
 }

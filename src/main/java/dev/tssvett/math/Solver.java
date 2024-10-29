@@ -24,7 +24,10 @@ public class Solver {
             } else {
                 a = x1;
             }
+            double dichotomyResult = (a + b) / 2;
+            double dichotomyEpsilon = (b - a) / 2;
             iteration++;
+            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n", iteration, dichotomyResult, a, b, dichotomyEpsilon);
         }
         double dichotomyResult = (a + b) / 2;
         double dichotomyEpsilon = (b - a) / 2;
@@ -87,6 +90,10 @@ public class Solver {
                 x2 = b - resphi * (b - a);
                 f2 = f(x2);
             }
+
+            double minimumPoint = (f1 < f2) ? x1 : x2;
+            double epsilon = (b - a) / 2;
+            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n", iteration, minimumPoint, a, b, epsilon);
         }
 
         double minimumPoint = (f1 < f2) ? x1 : x2;
@@ -131,6 +138,10 @@ public class Solver {
             fibonacciN = fibonacciN1;
             fibonacciN1 = fibonacciN2;
             fibonacciN2 = fibonacciN - fibonacciN1;
+
+            double minimum = (a + b) / 2;
+            double epsilon = (b - a) / 2;
+            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n", iterationCount, minimum, a, b, epsilon);
         }
 
         double minimum = (a + b) / 2;
