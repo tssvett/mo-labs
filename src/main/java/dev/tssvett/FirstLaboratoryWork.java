@@ -5,7 +5,7 @@ import dev.tssvett.service.DichotomyService;
 import dev.tssvett.service.FibonacciService;
 import dev.tssvett.service.GoldenRatioService;
 
-public class LaboratoryWork {
+public class FirstLaboratoryWork {
     private final Display display = new Display();
     private final DichotomyService dichotomyService = new DichotomyService();
     private final GoldenRatioService goldenRatioService = new GoldenRatioService();

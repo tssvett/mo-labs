@@ -8,7 +8,7 @@ public class Solver {
     }
 
     public static double f(double x) {
-        return Math.sqrt(Math.abs(x - 2)) * Math.sqrt(Math.abs(x - 2) * Math.abs(x - 2) * Math.abs(x - 2) * Math.abs(x - 2) * Math.abs(x - 2));
+        return Math.sqrt(Math.pow(Math.abs(x - 2), 5L));
     }
 
     public static Result findMinimumByDichotomyV1(double a, double b, double deltaX) {
@@ -26,36 +26,9 @@ public class Solver {
             }
             double dichotomyResult = (a + b) / 2;
             double dichotomyEpsilon = (b - a) / 2;
-            iteration++;
-            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n", iteration, dichotomyResult, a, b, dichotomyEpsilon);
-        }
-        double dichotomyResult = (a + b) / 2;
-        double dichotomyEpsilon = (b - a) / 2;
-
-        return new Result(dichotomyResult, dichotomyEpsilon, iteration);
-    }
-
-    public static Result findMinimumByDichotomyV2(double a, double b, double deltaX) {
-        int iteration = 0;
-        double xm = (a + b) / 2;
-        double L = b - a;
-
-        while (L > 2 * deltaX) {
-            double x1 = a + L / 4;
-            double x2 = b - L / 4;
-
-            if (f(x1) < f(xm)) {
-                b = xm;
-                xm = x1;
-            } else if (f(x2) < f(xm)) {
-                a = xm;
-                xm = x2;
-            } else {
-                a = x1;
-                b = x2;
-            }
-            L = b - a;
-            iteration++;
+            iteration += 2;
+            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n",
+                    iteration, dichotomyResult, a, b, dichotomyEpsilon);
         }
         double dichotomyResult = (a + b) / 2;
         double dichotomyEpsilon = (b - a) / 2;
@@ -73,9 +46,9 @@ public class Solver {
         double f1 = f(x1);
         double f2 = f(x2);
 
-        int iteration = 0;
+        int iteration = 2;
 
-        while (Math.abs(b - a) > deltaX) {
+        while (Math.abs(b - a) > 2 * deltaX) {
             iteration++;
             if (f1 < f2) {
                 b = x2; // Сужаем интервал
@@ -91,22 +64,23 @@ public class Solver {
                 f2 = f(x2);
             }
 
-            double minimumPoint = (f1 < f2) ? x1 : x2;
+            double result = (a + b) / 2;
             double epsilon = (b - a) / 2;
-            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n", iteration, minimumPoint, a, b, epsilon);
+            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n",
+                    iteration, result, a, b, epsilon);
         }
-
-        double minimumPoint = (f1 < f2) ? x1 : x2;
-
-        return new Result(minimumPoint, (b - a) / 2, iteration);
+        return new Result((a + b) / 2, (b - a) / 2, iteration);
     }
 
 
     public static Result findMinimumByFibonacciMethod(double a, double b, double deltaX) {
         // Определение числа итераций через длину интервала и deltaX
         int n = 1;
-        double fibonacciN2 = 1, fibonacciN1 = 1, fibonacciN = 2;
-        while (fibonacciN * deltaX < b - a) {
+        double fibonacciN2 = 1;
+        double fibonacciN1 = 1;
+        double fibonacciN = 2;
+
+        while (b - a > fibonacciN * deltaX) {
             n++;
             fibonacciN2 = fibonacciN1;
             fibonacciN1 = fibonacciN;
@@ -118,7 +92,7 @@ public class Solver {
         double f1 = f(x1);
         double f2 = f(x2);
 
-        int iterationCount = 0;
+        int iterationCount = 2;
 
         for (int i = 1; i < n; i++) {
             iterationCount++;
@@ -139,9 +113,10 @@ public class Solver {
             fibonacciN1 = fibonacciN2;
             fibonacciN2 = fibonacciN - fibonacciN1;
 
-            double minimum = (a + b) / 2;
+            double result = (a + b) / 2;
             double epsilon = (b - a) / 2;
-            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n", iterationCount, minimum, a, b, epsilon);
+            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n",
+                    iterationCount, result, a, b, epsilon);
         }
 
         double minimum = (a + b) / 2;

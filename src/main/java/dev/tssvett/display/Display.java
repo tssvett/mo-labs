@@ -3,7 +3,8 @@ package dev.tssvett.display;
 import dev.tssvett.result.Result;
 
 public class Display {
-    private static final String BORDER = "===========================================================================================";
+    private static final String BORDER = "==========================================================================" +
+            "==========================";
 
     public void outputGeneralLaboratoryInformation() {
         this.outputLaboratorySolverName();
@@ -26,17 +27,20 @@ public class Display {
     }
 
     public void outputDichotomyResult(Result result) {
-        System.out.println("Результат дихотомии: " + result.answer() + ", погрешность: " + result.epsilon() + ", количество итераций: " + result.iterations());
+        System.out.println("Результат дихотомии: " + result.answer() + ", погрешность: " + result.epsilon()
+                + ", количество итераций: " + result.iterations());
         System.out.println(BORDER);
     }
 
     public void outputGoldenRatioResult(Result result) {
-        System.out.println("Результат золотого сечения: " + result.answer() + ", погрешность: " + result.epsilon() + ", количество итераций: " + result.iterations());
+        System.out.println("Результат золотого сечения: " + result.answer() + ", погрешность: " + result.epsilon()
+                + ", количество итераций: " + result.iterations());
         System.out.println(BORDER);
     }
 
     public void outputFibonacciResult(Result result) {
-        System.out.println("Результат фибоначчи: " + result.answer() + ", погрешность: " + result.epsilon() + ", количество итераций: " + result.iterations());
+        System.out.println("Результат фибоначчи: " + result.answer() + ", погрешность: " + result.epsilon()
+                + ", количество итераций: " + result.iterations());
         System.out.println(BORDER);
     }
 }
