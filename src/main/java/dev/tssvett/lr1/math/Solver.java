@@ -1,6 +1,6 @@
-package dev.tssvett.math;
+package dev.tssvett.lr1.math;
 
-import dev.tssvett.result.Result;
+import dev.tssvett.lr1.result.Result;
 
 public class Solver {
 
@@ -94,7 +94,7 @@ public class Solver {
 
         int iterationCount = 2;
 
-        for (int i = 1; i < n + 2; i++) {
+        for (int i = 1; i < n; i++) {
             iterationCount++;
             if (f1 < f2) {
                 b = x2;
