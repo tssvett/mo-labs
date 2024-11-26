@@ -8,7 +8,7 @@ public class FibonacciService {
     private final Display display = new Display();
 
     public void solveByFibonacciMethod(){
-        Result fibonacciResult = Solver.findMinimumByFibonacciMethod(0, 5, 0.00001);
+        Result fibonacciResult = Solver.findMinimumByFibonacciMethod(0, 5, 0.0000005);
         display.outputFibonacciResult(fibonacciResult);
     }
 }

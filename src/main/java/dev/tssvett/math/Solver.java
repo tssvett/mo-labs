@@ -96,17 +96,25 @@ public class Solver {
 
         for (int i = 1; i < n + 2; i++) {
             iterationCount++;
-            if (f1 < f2) {
+            if (f1 <= f2) {
                 b = x2;
                 x2 = x1;
                 f2 = f1;
                 x1 = a + fibonacciN2 / fibonacciN * (b - a);
+                double epsilon = 0.01 * (b - a);
+                if (Math.abs(x1 - x2) < epsilon) {
+                    x1 -= epsilon;
+                }
                 f1 = f(x1);
             } else {
                 a = x1;
                 x1 = x2;
                 f1 = f2;
                 x2 = a + fibonacciN1 / fibonacciN * (b - a);
+                double epsilon = 0.01 * (b - a);
+                if (Math.abs(x1 - x2) < epsilon) {
+                    x2 += epsilon;
+                }
                 f2 = f(x2);
             }
             fibonacciN = fibonacciN1;
@@ -114,9 +122,9 @@ public class Solver {
             fibonacciN2 = fibonacciN - fibonacciN1;
 
             double result = (a + b) / 2;
-            double epsilon = (b - a) / 2;
-            System.out.printf("Итерация: %-10d Результат: %-15.6f a = %-10.6f b = %-10.6f Погрешность: %-10.6f%n",
-                    iterationCount, result, a, b, epsilon);
+            double delta = (b - a) / 2;
+            System.out.printf("Итерация: %-10d Результат: %-15.20f a = %-10.20f b = %-10.20f x1=%-10.20f x2=%-10.20f Погрешность: %-10.20f%n",
+                    iterationCount, result, a, b, x1, x2, delta);
         }
 
         double minimum = (a + b) / 2;
